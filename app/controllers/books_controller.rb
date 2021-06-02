@@ -51,11 +51,6 @@ class BooksController < ApplicationController
     redirect_to books_path
   end
 
-  def search
-    method = params[:search_method]
-    word = params[:search_word]
-    @books = Book.search(method,word)
-  end
 
   private
 

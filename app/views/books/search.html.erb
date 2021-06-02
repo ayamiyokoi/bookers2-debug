@@ -1,14 +1,4 @@
- <% if user_signed_in? %>
-          <!--検索窓-->
-          <%= form_tag(books_search_path , method: :get) do %>
-          <%= text_field(@search_content, :search_word)%>
-          <%= select(@search_content, :search_method, [["Book","Book"], ["User","User"]])%>
 
-          <%= select(@search_content, :search_method, [["前方一致","forward_match"], ["後方一致","backward_match"], ["完全一致","perfect_match"], ["部分一致","partial_match"]])%>
-
-          <%= submit_tag "検索" %>
-          <% end %>
-<% end %>
 
           <table>
             <thead>

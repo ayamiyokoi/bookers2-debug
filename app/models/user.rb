@@ -12,15 +12,15 @@ class User < ApplicationRecord
 
   validates :name, length: {maximum: 20, minimum: 2}, uniqueness: true
   validates :introduction, length: {maximum: 50}
-  
+
   has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   has_many :followers, through: :reverse_of_relationships, source: :follower
-  
+
 
   has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
- 
+
   has_many :followings, through: :relationships, source: :followed
-  
+
   def follow(user_id)
     relationships.create(followed_id: user_id)
   end
@@ -29,5 +29,19 @@ class User < ApplicationRecord
   end
   def following?(user)
     followings.include?(user)
+  end
+
+ 	def self.looks(searches, words)
+    if @range == "forward_match"
+                        @users = User.where("text LIKE?","#{word}%")
+    elsif @range == "backward_match"
+                        @users = User.where("text LIKE?","%#{word}")
+    elsif @range == "perfect_match"
+                        @users = User.where("#{word}")
+    elsif @range == "partial_match"
+                        @users = User.where("text LIKE?","%#{word}%")
+    else
+                        @users = User.all
+    end
   end
 end

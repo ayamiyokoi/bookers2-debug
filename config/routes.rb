@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get 'finders/finder'
   devise_for :users
   root 'homes#top'
   get 'home/about' => 'homes#about', as: 'homes_about'
@@ -9,7 +10,7 @@ Rails.application.routes.draw do
     get 'followers' => 'relationships#followers', as: 'followers'
   end
 
-  get 'search' => 'books#search', as: 'books_search'
+  get 'finder' => "finders#finder"
 
   resources :books do
     resource :favorites, only: [:create, :destroy]
