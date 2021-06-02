@@ -1,0 +1,28 @@
+ <% if user_signed_in? %>
+          <!--検索窓-->
+          <%= form_tag(books_search_path , method: :get) do %>
+          <%= text_field(@search_content, :search_word)%>
+          <%= select(@search_content, :search_method, [["Book","Book"], ["User","User"]])%>
+
+          <%= select(@search_content, :search_method, [["前方一致","forward_match"], ["後方一致","backward_match"], ["完全一致","perfect_match"], ["部分一致","partial_match"]])%>
+
+          <%= submit_tag "検索" %>
+          <% end %>
+<% end %>
+
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>title</th>
+                <th>Opinion</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><% @books.each do |book| %>
+                <td><%= attachment_image_tag(book.user, :profile_image, :fill, 50, 50, fallback: "no-image-icon.jpg") %></td>
+                <td<%= link_to book.title, book %>></td>
+                <td></td>
+              </tr><% end %>
+            </tbody>
+          </table>
